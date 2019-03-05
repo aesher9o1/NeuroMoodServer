@@ -1,18 +1,24 @@
 from NeuroPy import NeuroPy
 from time import sleep
+import numpy as np
+import pandas as pd
 
-neuropy = NeuroPy("COM5") 
-
-def attention_callback(attention_value):
-    """this function will be called everytime NeuroPy has a new value for attention"""
-    print ("Value of attention is: ", attention_value)
-    return None
-
-neuropy.setCallBack("attention", attention_callback)
+X=[]
+dataset=20
+neuropy = NeuroPy("COM5")
 neuropy.start()
 
 try:
     while True:
-        sleep(0.2)
+        while(len(X)<dataset):
+            print(str(len(X)))
+            a = np.array([neuropy.attention,neuropy.meditation,neuropy.rawValue,neuropy.delta,neuropy.theta,neuropy.lowAlpha,neuropy.highAlpha,neuropy.lowBeta,neuropy.highBeta,neuropy.lowGamma,neuropy.midGamma])
+            X.append(a)
+            sleep(0.5)
+
+        break
 finally:
+    print("making the dataset")
+    df = pd.DataFrame(X)
+    df.to_excel('concentrate.xlsx')
     neuropy.stop()
