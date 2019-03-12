@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 X=[]
-dataset=20
+dataset=90000
 neuropy = NeuroPy("COM5")
 neuropy.start()
 
@@ -20,5 +20,5 @@ try:
 finally:
     print("making the dataset")
     df = pd.DataFrame(X)
-    df.to_excel('concentrate.xlsx')
+    df.to_csv('scared.csv')
     neuropy.stop()
